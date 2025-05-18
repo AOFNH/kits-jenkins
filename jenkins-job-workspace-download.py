@@ -72,7 +72,13 @@ def download_job_files(job_name):
 def extract_job_files(job_name):
     """Extract workspace files to the specified directory"""
     source_dir = os.path.join(os.getcwd(), os.getenv("DOWNLOAD_DIR"), job_name)
-    target_dir = os.path.join(os.getcwd(), os.getenv("UNZIP_DIR"), job_name)
+
+    # Remove prefix from job name for target directory
+    prefix = os.getenv("ENV_JOB_PREFIX", "")
+    clean_job_name = (
+        job_name[len(prefix) :] if job_name.startswith(prefix) else job_name
+    )
+    target_dir = os.path.join(os.getcwd(), os.getenv("UNZIP_DIR"), clean_job_name)
     temp_dir = os.path.join(os.getcwd(), "temp_extract")
 
     # Ensure directories exist
