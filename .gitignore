@@ -3,4 +3,4 @@ venv
 .idea
 .env
 jobs.txt
-workspaces
+workspaces*
